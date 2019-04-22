@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PASSPORT PHOTO MAKER</title>
+</head>
+<body>
+    <div id="page">
+      <header id="masthead" class="site-header" role="banner">
+        <div class="container">
+          <h1><img src="assets/6bf0874.png"/><span class="pageTitle">PASSPORT PHOTO MAKER</span></h1>
+        </div>
+      </header>
+      <div id="content" class="container">
+        <div class="row">
+          <div id="crop-action-area" class="col-md-6">
+            <div class="crop-btn-area row">
+              <label class="btn btn-primary btn-upload" for="inputImage">
+                <input class="sr-only" id="inputImage" name="file" type="file" accept="image/*">
+                  Change Picture
+              </label>
+            </div>
+            <div class="crop-btn-area row">
+              <label class="btn btn-primary" data-method="setAspectRatio" data-option="1.7777777777777777">
+                <input class="sr-only" id="aspestRatio1" name="aspestRatio" value="1.7777777777777777" type="radio">
+                  16:9
+              </label>
+              <label class="btn btn-primary" data-method="setAspectRatio" data-option="1.3333333333333333">
+                <input class="sr-only" id="aspestRatio2" name="aspestRatio" value="1.3333333333333333" type="radio">
+                  4:3
+              </label>
+              <label class="btn btn-primary" data-method="setAspectRatio" data-option="1">
+                <input class="sr-only" id="aspestRatio3" name="aspestRatio" value="1" type="radio">
+                  1:1
+              </label>
+              <label class="btn btn-primary" data-method="setAspectRatio" data-option="0.6666666666666666">
+                <input class="sr-only" id="aspestRatio4" name="aspestRatio" value="0.6666666666666666" type="radio">
+                  2:3
+              </label>
+              <label class="btn btn-primary active" data-method="setAspectRatio" data-option="NaN">
+                <input class="sr-only" id="aspestRatio5" name="aspestRatio" value="NaN" type="radio">
+                  Free
+              </label>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="img-container" id="img-up">
+                <img src="assets/ec81c8e.jpg">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="croppedInput row">
+              <div class="col-xs-4">
+                No. of col <br/>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAACXUlEQVRoge2ZsYvaUBzHv+/pYkB61AxdpDeZsc2odFDf23trJ50yFEqv4B/QP0BpoeDgdJ262jkRPSgHTtrxZRLi0CEpV4Q4aTrUWI+CGq+a5MgHAu+FX16+3+S98Mv7EQBgjL0FcClJ0nk+nwcAOI4Dx3EQNp7nTQghE78NYNDr9T5vxpBKpfIsm80OarXamaqqWwcUQuDqyye8uHi8l4Bv3Z+ov3oDRVH2itc0DZ1O584527bXD9N1XZimieFwOOh2uxU/Jp1KpT4yxnYaCAtZliHL8rqvqiqEEGXO+QfDMN4BAM1kMmXGWGgiD6HRaMDzvDrn/BEAUEVRIElS2LoCIUkSVFU9A1AGAOov5Lix0v0cAGiQC3O5HNzZYu94d7ZALpcLJG5fCoUC4L+JIBfKsox5ABPz2eLOovyfrL54ZQCglmUd5SanhLquG7aGexNoOkWVBzGdCOfcC1vEfTAMg6QB/JOvbEPTNLx8/WSv2K/tH4HHDhoPPJQ1EbaAQ7Ft20/N42vCcRz4/xmxNbFJYiIqJCbCZJVpjIEYm5jP5wBwC8TYxCZJ7rSLJHcKQGIiKiQmokJiIiokJqJCknbsIkk7ApCYiAr0WJWcU0JLpVLYGg7Cdd2/O4BxLbIIIQB/o2DViR3j8RgAugBAp9PpOG5GLMvCzc3NhBDyxwQh5LLdbiMuFaPRaIRWq3W7XC4vDMP4BQBpXdevGWP1ZrN5xTlHsVg8Wtn2EIQQME1z3RZCTCil9X6//92PIX6jWq0+JYS8B1AmhJyfWOs2BqsDhJCBruvXoao5Fr8BMKvtKzq8yeMAAAAASUVORK5CYII=" alt="No. of col" title="No. of col" /><br/>
+                <input type="number" class="form-control txtNo" id="noOfCol" value="4">
+              </div>
+              <div class="col-xs-4">
+                No. of Row <br/>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAACXUlEQVRoge2ZsW7aQACGvzMsWEKNhIcuUTPB2HqECbDXqH0DmBi6NJV4gD4AUTsxMLVvQJURI8gSKVPoeExIMHTAUtJKHhoFdyhOaVVR7EBsI3+SpbP1n/3/9t3pfCcADMN4A5yoqnp0eHgIgG3b2LZN2LiuOxFCTLwyMOz3+59WNaJSqTzPZrPDWq12oOv62htKKTk7O6PZbG5koNVqcXx8TKFQ2EjfaDTodDp/XJvP5/cv03EcxuMxl5eXw263W/E06VQq9cEwjP8GCAtN09A07f5c13WklGXTNN9blvUWQMlkMmXDMEIzGYRms4nrunXTNJ8AKIVCAVVVw/blC1VV0XX9ACgDKF5HjhtL3y8AFD8Vc7mcrxHLtm1yuZwvc5uSz+fB+xJ+Kmqa5jvEaqfcJssRrwygTKfTnTzkMVEcxwnbw4Px1Zyiyl40J2Gaphu2iYdgWZZIA7x8/XTjSp/bXzfW+9EG1cO+9ImwDQTF+XbnTc1jHOL7Hd5/RmxDrJKEiApJiDC5md8CjCDGIW5/uADXEOMQq+zP3OnvtZ51/GttaBvaoHrYk+aUhIgKSYiokISICkmIqJBMO7apDaqHPWlOSYiooOxqJ+cxUUqlUtgeAuE4zu8VwLhuskgpwVsoWJ7EjtFoBNAFUGaz2ShuQabTKRcXFxMhxK8QQoiTdrtNXHaMrq6uOD09vV4sFq8sy7oBSPd6vXPDMOqtVuujaZoUi8WdbdsGQUrJeDy+L0spJ4qi1AeDwRdPI7xCtVp9JoR4B5SFEEeP7HUdw+WBEGLY6/XOQ3WzK34CdU7tK5oGIpsAAAAASUVORK5CYII=" alt="No. of col" title="No. of col" /><br/>
+                <input type="number" class="form-control txtNo" id="noOfRow" value="2">
+              </div>
+              <div class="col-xs-4">
+                Spacing (px) <br/>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAxCAYAAACVtYpYAAACJ0lEQVRoge2av66iQBTGv0ELQ7UJlJjdjlZamiWAJYmd5VrxBD6AD0Bxaxt338ANpaBuo6VsCdXdTE1yK8rhNmLQbLz+uerEzK/hMByG7+MQcpIZgi22bX8lhLwQQnqapkGWZQBAlmXghGU9Zoz9nM/n/w6TmlVACBmZptnzPA+qqh6dOQgCeJ4HXdc/VJGmKcIwxHA4PEl1GIYAAM/zDuexqphSaiVJMmo0GtZsNvtTz2sCQLfb/d5qtQb9fn9XGd6ovzxd16EoCtI0ndq23alXSgIAxtjAdV0uzGiaBkrph3mGYcB13S+SJA3q49L2aHU6nRvIOx9ZllEUxUm5pmkCQK8+JgEAIeRbu93+dHG3Zqt5rxLS/1OPk+c5FEU5KVdRFOR5fsljLuJiQx/9CStUVeXfEM9wZ+jaT5QAgOu65acpegBRFJEq5q5C1yIM8c7TGdp12+Px+OSbfN/nJt/3/b3zp6uQMMQ7whDvCEO883SGnq7bFp0C7whDvCMM8Y4wxDvCEO+I1gcQrc9dEYZ4RxjiHQkAyrJ8O3XlmScopSjL8rU+VlVomqbp/RVdSZIkwP6Wmd2y/jSO4wdIuhxKKaIoAmPspT4uAUAURb+zLFtOJpPHqDuT1WqFIAhQFMVgsVj8rV9r1uLeer1e5nnecRwHhmHcWeZxqk1NlFJsNps3xph1aAbY9nJ1HMf5QQgZALBuLfJMRgBQluVrHMe/HqzlfrwDCsbRdCcwfK8AAAAASUVORK5CYII=" alt="No. of col" title="No. of col" /><br/>
+                <input type="number" class="form-control txtNo" id="spacingPx" value="5">
+              </div>
+            </div>
+            <div id="save-instruction" class="row">
+              <a class="btn btn-primary" download>Download</a>
+            </div>
+            <div class="row">
+              <canvas id="preview-cropped" width="1800" height="1200"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer id="colophon" class="site-footer" role="contentinfo">
+        <div class="container">
+          <div class="site-info">Developed by <a>heika</a></div>
+        </div>
+      </footer>
+    </div>
+<script type="text/javascript" src="main.js"></script></body>
+
+</html>

@@ -165,8 +165,6 @@ $(function () {
   $("#noOfCol, #noOfRow, #spacingPx").change(function() {
     exportCrop();
   });  
-
-  $(".pageTitle").html(information["pageTitle"]);
 });
 
 var dataX = 0, dataY=0, dataHeight=0, dataWidth=0;

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PASSPORT PHOTO MAKER</title>
+</head>
+<body>
+  <div id="page">
+    <header id="masthead" class="site-header" role="banner">
+      <div class="container">
+        <h1><img src="img/icon-logo.png"/><span class="pageTitle">PASSPORT PHOTO MAKER</span></h1>
+      </div>
+    </header>
+    <main id="content" class="container">
+      <div id="working-area"></div>
+      <div class="row">
+        <div id="crop-action-area" class="col-md-6">
+          <div class="row">
+            <div class="img-container" id="img-up">
+              <img id="img-to-be-cropped" src="img/picture.jpg">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="croppedInput row">
+            <div class="col-xs-4">
+              No. of col <br/>
+              <img src="img/icon-col-48.png" alt="No. of col" title="No. of col" /><br/>
+              <input type="number" class="form-control txtNo" id="noOfCol" value="4">
+            </div>
+            <div class="col-xs-4">
+              No. of Row <br/>
+              <img src="img/icon-row-48.png" alt="No. of col" title="No. of col" /><br/>
+              <input type="number" class="form-control txtNo" id="noOfRow" value="2">
+            </div>
+            <div class="col-xs-4">
+              Spacing (px) <br/>
+              <img src="img/icon-space-48.png" alt="No. of col" title="No. of col" /><br/>
+              <input type="number" class="form-control txtNo" id="spacingPx" value="5">
+            </div>
+          </div>
+          <div id="save-instruction" class="row">
+            <a class="btn btn-primary" download>Download</a>
+          </div>
+          <div class="row">
+            <canvas id="preview-cropped" width="1800" height="1200"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer id="colophon" class="site-footer" role="contentinfo">
+      <div class="container">
+        <div class="site-info">Developed by <a>heika</a></div>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

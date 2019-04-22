@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>PASSPORT PHOTO MAKER</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/cropper.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -12,10 +11,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
   <script src="js/cropper.js"></script>
   <script src="js/html2canvas.js"></script>
-  <script src="js/shareditems.js"></script>
   <script src="js/script.js"></script>
 </head>
 <body>
@@ -82,7 +79,7 @@
             </div>
           </div>
           <div id="save-instruction" class="row">
-            Right click on the canvas and save as!
+            <a class="btn btn-primary" download>Download</a>
           </div>
           <div class="row">
             <canvas id="preview-cropped" width="1800" height="1200"></canvas>
