@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import RatioInputContainer from "../container/RatioInputContainer.jsx";
 import Input from "../presentational/Input.jsx";
+import CropArea from "../presentational/CropArea.jsx";
 import Cropper from 'cropperjs';
 
 class FormContainer extends Component {
@@ -36,14 +37,10 @@ class FormContainer extends Component {
         // console.log(event.detail.scaleY);
       },
     });
-
-    image.addEventListener('ready crop', function () {
-      form.exportCrop();
-    });
     
-    // ['ready','crop'].forEach( evt => 
-    //   image.addEventListener(evt, form.exportCrop, false)
-    // );
+    ['ready','crop'].forEach( evt => 
+      image.addEventListener(evt, form.exportCrop, false)
+    );
   }
   componentDidMount() {
     
@@ -71,7 +68,7 @@ class FormContainer extends Component {
   exportCrop() {
     var oc=document.getElementById("preview-cropped");
     var octx=oc.getContext("2d");
-    
+    console.log(this)
     var canvasWidth = oc.width;
     var canvasHeight = oc.height;
     var noOfRow = this.state.noOfRow;
@@ -117,6 +114,7 @@ class FormContainer extends Component {
       <form>
         <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
         <RatioInputContainer />
+        <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc="img/picture.jpg" />
       </form>
     );
   }
