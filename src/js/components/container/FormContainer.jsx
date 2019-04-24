@@ -1,23 +1,41 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+
 import RatioInputContainer from "../container/RatioInputContainer.jsx";
+import CanvasSeletionContainer from "../container/CanvasSelectionContainer.jsx";
 import Input from "../presentational/Input.jsx";
 import CropArea from "../presentational/CropArea.jsx";
+
 import Cropper from 'cropperjs';
+import CropImage from '../../../img/picture.jpg'; 
+
+import colImage from '../../../img/icon-col-48.png'; 
+import rowImage from '../../../img/icon-row-48.png'; 
+import spaceImage from '../../../img/icon-space-48.png'; 
 
 class FormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      noOfRow: 2,
-      noOfCol: 4,
-      spacingPx: 5,
       dataHeight: 0,
       dataHeight: 0,
       dataX: 0,
-      dataY: 0
+      dataY: 0,
+      
+      canvasSelectionsValue: {
+        noOfCol: '4',
+        noOfRow: '2',
+        spacingPx: '5'
+      }
     };
+    this.canvasSelections = [
+      {text: 'No. of Col', imgSrc: colImage, id: 'noOfCol'},
+      {text: 'No. of Row', imgSrc: rowImage, id: 'noOfRow'},
+      {text: 'Spacing (px)', imgSrc: spaceImage, id: 'spacingPx'}
+      ]
+    this.canvasChange = this.canvasChange.bind(this);
     this.changeImage = this.changeImage.bind(this);
+    this.canvasSelectionsValueChange = this.canvasSelectionsValueChange.bind(this);
   }
   componentDidMount() {
     let form = this;
@@ -40,6 +58,16 @@ class FormContainer extends Component {
     );
 
   }
+  canvasChange(event) {
+      let canvasSelections = this.state.canvasSelections;
+      for(let i in canvasSelections) {
+          if(canvasSelections[i].id == event.target.id) {
+              canvasSelections[i].value = event.target.value;
+          }
+      }
+      this.setState({ canvasSelections : canvasSelections} );
+      // console.log(event.target.id)
+  }
   changeImage(event) {
     let URL = window.URL || window.webkitURL;
 
@@ -57,14 +85,22 @@ class FormContainer extends Component {
     }
     event.target.value = '';
   }
+  canvasSelectionsValueChange(event) {
+    let canvasSelectionsValue = this.state.canvasSelectionsValue;
+    
+    canvasSelectionsValue[event.target.id] = event.target.value;
+    this.setState({ canvasSelectionsValue : canvasSelectionsValue} );
+
+    this.exportCrop();
+  }
   exportCrop() {
     let oc=document.getElementById("preview-cropped");
     let octx=oc.getContext("2d");
     let canvasWidth = oc.width;
     let canvasHeight = oc.height;
-    let noOfRow = this.state.noOfRow;
-    let noOfCol = this.state.noOfCol;
-    let spacingPx = this.state.spacingPx;
+    let noOfRow = this.state.canvasSelectionsValue.noOfRow;
+    let noOfCol = this.state.canvasSelectionsValue.noOfCol;
+    let spacingPx = this.state.canvasSelectionsValue.spacingPx;
     let dataHeight = this.state.dataHeight;
     let dataWidth = this.state.dataWidth;
     let dataX = this.state.dataX;
@@ -105,7 +141,11 @@ class FormContainer extends Component {
       <form>
         <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
         <RatioInputContainer />
-        <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc="https://3.bp.blogspot.com/-EsLHYU9Pd1s/XGgflPqD1jI/AAAAAAAAaSk/6vGmdvm3UxoZLYFQoqXjt1A9knKs1EWpgCKgBGAs/s640/IMG_7785.HEIC" />
+        <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
+        <CanvasSeletionContainer 
+          canvasSelections={this.canvasSelections} 
+          canvasSelectionsValue={this.state.canvasSelectionsValue}
+          canvasSelectionsValueChange={this.canvasSelectionsValueChange}/>
       </form>
     );
   }
