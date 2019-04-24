@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { SketchPicker } from 'react-color';
 
 import RatioInputContainer from "../container/RatioInputContainer.jsx";
 import CanvasSeletionContainer from "../container/CanvasSelectionContainer.jsx";
@@ -26,13 +27,17 @@ class FormContainer extends Component {
         noOfCol: '4',
         noOfRow: '2',
         spacingPx: '5'
-      }
+      },
+
+      background: '#FFF'
+
     };
     this.canvasSelections = [
       {text: 'No. of Col', imgSrc: colImage, id: 'noOfCol'},
       {text: 'No. of Row', imgSrc: rowImage, id: 'noOfRow'},
       {text: 'Spacing (px)', imgSrc: spaceImage, id: 'spacingPx'}
       ]
+    this.backgroundColorChange = this.backgroundColorChange.bind(this);
     this.canvasChange = this.canvasChange.bind(this);
     this.changeImage = this.changeImage.bind(this);
     this.setAspectRatio = this.setAspectRatio.bind(this);
@@ -59,6 +64,10 @@ class FormContainer extends Component {
     );
 
   }
+  backgroundColorChange = (color) => {
+    this.setState({ background: color.hex });
+    this.exportCrop();
+  };
   canvasChange(event) {
       let canvasSelections = this.state.canvasSelections;
       for(let i in canvasSelections) {
@@ -133,8 +142,12 @@ class FormContainer extends Component {
   
     octx.fillStyle = "#FFFFFF";
     octx.fillRect(0,0,oc.width,oc.height);
+
+    octx.fillStyle = this.state.background;
+
     for(let i=0; i<noOfCol; i++) {
       for(let j=0; j<noOfRow; j++) {
+        octx.fillRect(cutSpacing + (maxWidth+cutSpacing*2)*i, cutSpacing + (maxHeight+cutSpacing*2)*j,cutWidth,cutHeight)
         octx.drawImage(img,parseInt(dataX),parseInt(dataY),parseInt(dataWidth),parseInt(dataHeight), cutSpacing + (maxWidth+cutSpacing*2)*i, cutSpacing + (maxHeight+cutSpacing*2)*j,cutWidth,cutHeight);
       }    
     }
@@ -143,13 +156,18 @@ class FormContainer extends Component {
     return (
       <form>
         <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
+        <SketchPicker
+          color={ this.state.background }
+          onChangeComplete={ this.backgroundColorChange }
+        />
         <RatioInputContainer setAspectRatio={this.setAspectRatio} />
         <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
         <CanvasSeletionContainer 
           canvasSelections={this.canvasSelections} 
           canvasSelectionsValue={this.state.canvasSelectionsValue}
           canvasSelectionsValueChange={this.canvasSelectionsValueChange}/>
-        <canvas id="preview-cropped" width="1800" height="1200"></canvas>
+        {/* <canvas id="preview-cropped" width="1800" height="1200"></canvas> */}
+        <canvas id="preview-cropped" width="1200" height="1600"></canvas>
       </form>
     );
   }

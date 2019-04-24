@@ -49,6 +49,14 @@ npm install sass-loader node-sass --save-dev
 npm install normalize.css
 ```
 
+```shell
+npm install react-color --save
+```
+
+```shell
+npm install --save-dev @babel/plugin-proposal-class-properties
+```
+
 ### Cropper.js
 ```shell
 npm install cropperjs
