@@ -30,8 +30,9 @@ class FormContainer extends Component {
         spacingPx: '5'
       },
 
-      background: '#FFF'
+      background: '#FFF',
 
+      aspectRatio: 0.75
     };
 
     this.canvasSize = {
@@ -73,7 +74,7 @@ class FormContainer extends Component {
     let image = document.getElementById('img-to-be-cropped');
 
     this.cropper = new Cropper(image, {
-      aspectRatio: 9 / 16,
+      aspectRatio: this.state.aspectRatio,
       crop(event) {
         form.setState({
           dataX: event.detail.x,
@@ -93,7 +94,10 @@ class FormContainer extends Component {
   }
   changeMakerMode(event) {
     this.setState({ mode: event.target.value });
-    
+    if(event.target.value=='split')
+      this.cropper.setAspectRatio(this.state.aspectRatio);
+    else
+    this.cropper.setAspectRatio(0.75);
   }
   backgroundColorChange = (color) => {
     this.setState({ background: color.hex });
@@ -134,6 +138,7 @@ class FormContainer extends Component {
     this.exportCrop();
   }
   setAspectRatio(event) {
+    this.setState({aspectRatio: event.target.value});
     this.cropper.setAspectRatio(event.target.value);
   }
   exportCrop() {
@@ -141,9 +146,9 @@ class FormContainer extends Component {
     let octx=oc.getContext("2d");
     let canvasWidth = oc.width;
     let canvasHeight = oc.height;
-    let noOfRow = this.state.canvasSelectionsValue.noOfRow;
-    let noOfCol = this.state.canvasSelectionsValue.noOfCol;
-    let spacingPx = this.state.canvasSelectionsValue.spacingPx;
+    let noOfRow = this.state.mode=='hko' ? '1' : this.state.canvasSelectionsValue.noOfRow;
+    let noOfCol = this.state.mode=='hko' ? '1' : this.state.canvasSelectionsValue.noOfCol;
+    let spacingPx = this.state.mode=='hko' ? '0' : this.state.canvasSelectionsValue.spacingPx;
     let dataHeight = this.state.dataHeight;
     let dataWidth = this.state.dataWidth;
     let dataX = this.state.dataX;
@@ -183,6 +188,12 @@ class FormContainer extends Component {
       }    
     }
   }
+  downloadImage(event) {
+    let oc=document.getElementById("preview-cropped");
+    let octx=oc.getContext("2d");
+      var dt = oc.toDataURL('image/jpeg');
+      event.target.href = dt;
+  }
   render() {
     return (
       <form>
@@ -192,12 +203,15 @@ class FormContainer extends Component {
           onChangeComplete={ this.backgroundColorChange }
         />
         <RadioInputContainer handleChange={this.changeMakerMode} prefix="mode" selections={this.modeSelections}/>
-        <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections}/>
+        {this.state.mode=='split' ? 
+          <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections}/>
+          : '' }
         <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
         {this.state.mode=='split' ? <CanvasSeletionContainer 
           canvasSelections={this.canvasSelections} 
           canvasSelectionsValue={this.state.canvasSelectionsValue}
           canvasSelectionsValueChange={this.canvasSelectionsValueChange}/> : ''}
+        <a id="downloadLnk" download="YourFileName.jpg" onClick={this.downloadImage}>Download JPG</a>
         <canvas id="preview-cropped" 
           width={this.canvasSize[this.state.mode].w} 
           height={this.canvasSize[this.state.mode].h} ></canvas>
