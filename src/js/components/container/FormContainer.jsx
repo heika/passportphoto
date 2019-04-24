@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { SketchPicker } from 'react-color';
 
-import RatioInputContainer from "../container/RatioInputContainer.jsx";
+import RadioInputContainer from "./RadioInputContainer.jsx";
 import CanvasSeletionContainer from "../container/CanvasSelectionContainer.jsx";
 import Input from "../presentational/Input.jsx";
 import CropArea from "../presentational/CropArea.jsx";
@@ -32,6 +32,14 @@ class FormContainer extends Component {
       background: '#FFF'
 
     };
+    
+    this.ratioSelections = [
+      {text: '1:1', value: '1', selected: false},
+      {text: '9:16', value: '0.5625', selected: false},
+      {text: '2:3', value: '0.6666666666666666', selected: false},
+      {text: '3:4', value: '0.75', selected: true},
+      {text: 'Free', value: 'NaN', selected: false}
+    ]
     this.canvasSelections = [
       {text: 'No. of Col', imgSrc: colImage, id: 'noOfCol'},
       {text: 'No. of Row', imgSrc: rowImage, id: 'noOfRow'},
@@ -48,7 +56,7 @@ class FormContainer extends Component {
     let image = document.getElementById('img-to-be-cropped');
 
     this.cropper = new Cropper(image, {
-      aspectRatio: 16 / 9,
+      aspectRatio: 9 / 16,
       crop(event) {
         form.setState({
           dataX: event.detail.x,
@@ -160,7 +168,7 @@ class FormContainer extends Component {
           color={ this.state.background }
           onChangeComplete={ this.backgroundColorChange }
         />
-        <RatioInputContainer setAspectRatio={this.setAspectRatio} />
+        <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections}/>
         <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
         <CanvasSeletionContainer 
           canvasSelections={this.canvasSelections} 
