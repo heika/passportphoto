@@ -35,6 +35,21 @@ body {
             -moz-box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);
             box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);
         }
+
+        .cropper-crop-box .cropper-move:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('../img/outline.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
     }
 
     footer#colophon {
