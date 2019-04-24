@@ -35,6 +35,7 @@ class FormContainer extends Component {
       ]
     this.canvasChange = this.canvasChange.bind(this);
     this.changeImage = this.changeImage.bind(this);
+    this.setAspectRatio = this.setAspectRatio.bind(this);
     this.canvasSelectionsValueChange = this.canvasSelectionsValueChange.bind(this);
   }
   componentDidMount() {
@@ -66,7 +67,6 @@ class FormContainer extends Component {
           }
       }
       this.setState({ canvasSelections : canvasSelections} );
-      // console.log(event.target.id)
   }
   changeImage(event) {
     let URL = window.URL || window.webkitURL;
@@ -92,6 +92,9 @@ class FormContainer extends Component {
     this.setState({ canvasSelectionsValue : canvasSelectionsValue} );
 
     this.exportCrop();
+  }
+  setAspectRatio(event) {
+    this.cropper.setAspectRatio(event.target.value);
   }
   exportCrop() {
     let oc=document.getElementById("preview-cropped");
@@ -140,7 +143,7 @@ class FormContainer extends Component {
     return (
       <form>
         <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
-        <RatioInputContainer />
+        <RatioInputContainer setAspectRatio={this.setAspectRatio} />
         <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
         <CanvasSeletionContainer 
           canvasSelections={this.canvasSelections} 
