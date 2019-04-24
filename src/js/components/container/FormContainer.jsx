@@ -146,6 +146,7 @@ class FormContainer extends Component {
           canvasSelections={this.canvasSelections} 
           canvasSelectionsValue={this.state.canvasSelectionsValue}
           canvasSelectionsValueChange={this.canvasSelectionsValueChange}/>
+        <canvas id="preview-cropped" width="1800" height="1200"></canvas>
       </form>
     );
   }
