@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 const CropArea = ({ holderId, imgId, imgSrc}) => (
-    <div class="img-container" id={holderId}>
+    <div className="img-container" id={holderId}>
         <img id={imgId} src={imgSrc} />
     </div>
 );

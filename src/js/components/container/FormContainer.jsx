@@ -6,8 +6,8 @@ import CropArea from "../presentational/CropArea.jsx";
 import Cropper from 'cropperjs';
 
 class FormContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       noOfRow: 2,
       noOfCol: 4,
@@ -18,8 +18,8 @@ class FormContainer extends Component {
       dataY: 0
     };
     this.changeImage = this.changeImage.bind(this);
-
-
+  }
+  componentDidMount() {
     let form = this;
     let image = document.getElementById('img-to-be-cropped');
 
@@ -32,20 +32,12 @@ class FormContainer extends Component {
           dataHeight: event.detail.height,
           dataWidth: event.detail.width
         });
-        // console.log(event.detail.rotate);
-        // console.log(event.detail.scaleX);
-        // console.log(event.detail.scaleY);
       },
     });
     
     ['ready','crop'].forEach( evt => 
-      image.addEventListener(evt, form.exportCrop, false)
+      image.addEventListener(evt, function() {form.exportCrop()}, false)
     );
-  }
-  componentDidMount() {
-    
-    // let form = this;
-    // let image = document.getElementById('img-to-be-cropped');
 
   }
   changeImage(event) {
@@ -66,28 +58,27 @@ class FormContainer extends Component {
     event.target.value = '';
   }
   exportCrop() {
-    var oc=document.getElementById("preview-cropped");
-    var octx=oc.getContext("2d");
-    console.log(this)
-    var canvasWidth = oc.width;
-    var canvasHeight = oc.height;
-    var noOfRow = this.state.noOfRow;
-    var noOfCol = this.state.noOfCol;
-    var spacingPx = this.state.spacingPx;
-    var dataHeight = this.state.dataHeight;
-    var dataWidth = this.state.dataWidth;
-    var dataX = this.state.dataX;
-    var dataY = this.state.dataY;
+    let oc=document.getElementById("preview-cropped");
+    let octx=oc.getContext("2d");
+    let canvasWidth = oc.width;
+    let canvasHeight = oc.height;
+    let noOfRow = this.state.noOfRow;
+    let noOfCol = this.state.noOfCol;
+    let spacingPx = this.state.spacingPx;
+    let dataHeight = this.state.dataHeight;
+    let dataWidth = this.state.dataWidth;
+    let dataX = this.state.dataX;
+    let dataY = this.state.dataY;
   
-    var outputWidth = 4000;
+    let outputWidth = 4000;
     
-    var cutWidth = 0;
-    var cutHeight = 0;
-    var cutSpacing = parseInt(spacingPx*canvasWidth/outputWidth); // *2
+    let cutWidth = 0;
+    let cutHeight = 0;
+    let cutSpacing = parseInt(spacingPx*canvasWidth/outputWidth); // *2
   
-    var maxWidth = parseInt(canvasWidth/noOfCol) - cutSpacing*2; // /2
-    var maxHeight = parseInt(canvasHeight/noOfRow) - cutSpacing*2; // /2
-    var steps = 0;
+    let maxWidth = parseInt(canvasWidth/noOfCol) - cutSpacing*2; // /2
+    let maxHeight = parseInt(canvasHeight/noOfRow) - cutSpacing*2; // /2
+    let steps = 0;
   
     if ((maxWidth/dataWidth)>(maxHeight/dataHeight)) {
       cutWidth = maxHeight/dataHeight*dataWidth;
@@ -99,12 +90,12 @@ class FormContainer extends Component {
       steps = Math.ceil(Math.log(dataWidth / cutWidth) / Math.log(2));
     }
   
-    var img=document.getElementById("img-up").getElementsByTagName('img')[0];
+    let img=document.getElementById("img-up").getElementsByTagName('img')[0];
   
     octx.fillStyle = "#FFFFFF";
     octx.fillRect(0,0,oc.width,oc.height);
-    for(var i=0; i<noOfCol; i++) {
-      for(var j=0; j<noOfRow; j++) {
+    for(let i=0; i<noOfCol; i++) {
+      for(let j=0; j<noOfRow; j++) {
         octx.drawImage(img,parseInt(dataX),parseInt(dataY),parseInt(dataWidth),parseInt(dataHeight), cutSpacing + (maxWidth+cutSpacing*2)*i, cutSpacing + (maxHeight+cutSpacing*2)*j,cutWidth,cutHeight);
       }    
     }
@@ -114,7 +105,7 @@ class FormContainer extends Component {
       <form>
         <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
         <RatioInputContainer />
-        <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc="img/picture.jpg" />
+        <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc="https://3.bp.blogspot.com/-EsLHYU9Pd1s/XGgflPqD1jI/AAAAAAAAaSk/6vGmdvm3UxoZLYFQoqXjt1A9knKs1EWpgCKgBGAs/s640/IMG_7785.HEIC" />
       </form>
     );
   }
