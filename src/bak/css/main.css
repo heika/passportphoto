@@ -43,7 +43,7 @@ a { color: #403627; text-decoration: none;}
 }
 
 #preview-cropped {
-  width: 98%;
+  width: 18%;
   -webkit-box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);
   -moz-box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);
   box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);

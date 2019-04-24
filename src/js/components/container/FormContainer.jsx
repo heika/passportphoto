@@ -18,6 +18,7 @@ class FormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      mode: 'split',
       dataHeight: 0,
       dataHeight: 0,
       dataX: 0,
@@ -32,7 +33,22 @@ class FormContainer extends Component {
       background: '#FFF'
 
     };
+
+    this.canvasSize = {
+      split: {
+        w: 1800,
+        h: 1200
+      },
+      hko: {
+        w: 1200,
+        h: 1600
+      }
+  }
     
+    this.modeSelections = [
+      {text: 'Split Photo', value: 'split', selected: true},
+      {text: 'HK Passport Photo Online Submission', value: 'hko', selected: false},
+    ]
     this.ratioSelections = [
       {text: '1:1', value: '1', selected: false},
       {text: '9:16', value: '0.5625', selected: false},
@@ -45,6 +61,7 @@ class FormContainer extends Component {
       {text: 'No. of Row', imgSrc: rowImage, id: 'noOfRow'},
       {text: 'Spacing (px)', imgSrc: spaceImage, id: 'spacingPx'}
       ]
+    this.changeMakerMode = this.changeMakerMode.bind(this);
     this.backgroundColorChange = this.backgroundColorChange.bind(this);
     this.canvasChange = this.canvasChange.bind(this);
     this.changeImage = this.changeImage.bind(this);
@@ -70,7 +87,13 @@ class FormContainer extends Component {
     ['ready','crop'].forEach( evt => 
       image.addEventListener(evt, function() {form.exportCrop()}, false)
     );
-
+  }
+  componentDidUpdate() {
+    this.exportCrop();
+  }
+  changeMakerMode(event) {
+    this.setState({ mode: event.target.value });
+    
   }
   backgroundColorChange = (color) => {
     this.setState({ background: color.hex });
@@ -168,14 +191,16 @@ class FormContainer extends Component {
           color={ this.state.background }
           onChangeComplete={ this.backgroundColorChange }
         />
+        <RadioInputContainer handleChange={this.changeMakerMode} prefix="mode" selections={this.modeSelections}/>
         <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections}/>
         <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
-        <CanvasSeletionContainer 
+        {this.state.mode=='split' ? <CanvasSeletionContainer 
           canvasSelections={this.canvasSelections} 
           canvasSelectionsValue={this.state.canvasSelectionsValue}
-          canvasSelectionsValueChange={this.canvasSelectionsValueChange}/>
-        {/* <canvas id="preview-cropped" width="1800" height="1200"></canvas> */}
-        <canvas id="preview-cropped" width="1200" height="1600"></canvas>
+          canvasSelectionsValueChange={this.canvasSelectionsValueChange}/> : ''}
+        <canvas id="preview-cropped" 
+          width={this.canvasSize[this.state.mode].w} 
+          height={this.canvasSize[this.state.mode].h} ></canvas>
       </form>
     );
   }
