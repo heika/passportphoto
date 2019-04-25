@@ -206,7 +206,7 @@ class FormContainer extends Component {
           backgroundColorChange={ this.backgroundColorChange }
         />
         {this.state.mode=='split' ? 
-          <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections}/>
+          <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections} customClass="average"/>
           : '' }
         <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
         {this.state.mode=='split' ? <CanvasSeletionContainer 
