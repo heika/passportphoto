@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { SketchPicker } from 'react-color';
 
 import RadioInputContainer from "./RadioInputContainer.jsx";
 import CanvasSeletionContainer from "../container/CanvasSelectionContainer.jsx";
+
 import Input from "../presentational/Input.jsx";
+import ColorPicker from "../presentational/ColorPicker.jsx";
 import CropArea from "../presentational/CropArea.jsx";
 
 import Cropper from 'cropperjs';
@@ -198,9 +199,10 @@ class FormContainer extends Component {
     return (
       <form>
         <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
-        <SketchPicker
-          color={ this.state.background }
-          onChangeComplete={ this.backgroundColorChange }
+        <ColorPicker
+          pickerLabel = "Background Color (If selected pic is transparent)"
+          background={ this.state.background }
+          backgroundColorChange={ this.backgroundColorChange }
         />
         <RadioInputContainer handleChange={this.changeMakerMode} prefix="mode" selections={this.modeSelections}/>
         {this.state.mode=='split' ? 
@@ -211,7 +213,7 @@ class FormContainer extends Component {
           canvasSelections={this.canvasSelections} 
           canvasSelectionsValue={this.state.canvasSelectionsValue}
           canvasSelectionsValueChange={this.canvasSelectionsValueChange}/> : ''}
-        <a id="downloadLnk" download="YourFileName.jpg" onClick={this.downloadImage}>Download JPG</a>
+        <a className="btn" download="download.jpg" onClick={this.downloadImage}>Download JPG</a>
         <canvas id="preview-cropped" 
           width={this.canvasSize[this.state.mode].w} 
           height={this.canvasSize[this.state.mode].h} ></canvas>
