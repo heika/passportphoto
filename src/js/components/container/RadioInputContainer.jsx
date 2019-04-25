@@ -8,7 +8,7 @@ class RadioInputContainer extends Component {
   }
   render() {
     return (
-      <div>
+      <div className={this.props.customClass}>
         {this.props.selections.map((sel, i) => {      
             return (<RadioInput
                 text={sel.text}

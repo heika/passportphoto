@@ -198,13 +198,13 @@ class FormContainer extends Component {
   render() {
     return (
       <form>
+        <RadioInputContainer handleChange={this.changeMakerMode} prefix="mode" selections={this.modeSelections} customClass="average"/>
         <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
         <ColorPicker
           pickerLabel = "Background Color (If selected pic is transparent)"
           background={ this.state.background }
           backgroundColorChange={ this.backgroundColorChange }
         />
-        <RadioInputContainer handleChange={this.changeMakerMode} prefix="mode" selections={this.modeSelections}/>
         {this.state.mode=='split' ? 
           <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections}/>
           : '' }
