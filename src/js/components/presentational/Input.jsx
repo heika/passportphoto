@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-const Input = ({ text, type, id, value='', handleChange, lblClasses='', accept='', inputRef = ''}) => (
-  <div className="form-group">
+const Input = ({ text, type, id, value='', handleChange, lblClasses='', accept='', inputRef = '', customClass='' }) => (
+  <div className={`form-group ${customClass}`}>
     <label htmlFor={id} className={lblClasses}>{text}</label>
     <input
       type={type}

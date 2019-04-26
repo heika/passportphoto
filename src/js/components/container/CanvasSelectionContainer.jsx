@@ -8,7 +8,7 @@ class CanvasSelectionContainer extends Component {
     }
     render() {
       return (
-        <div>
+        <div className={this.props.customClass}>
           {this.props.canvasSelections.map((sel, i) => {
               let stateVal = this.props.canvasSelectionsValue[sel.id];
               return (<CanvasSeletion

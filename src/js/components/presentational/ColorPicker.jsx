@@ -47,11 +47,16 @@ class ColorPicker extends React.Component {
 
         const styles = reactCSS({
             'default': {
+                holder: {
+                    width: '100%'
+                },
                 color: {
-                    width: '36px',
-                    height: '14px',
+                    // width: '36px',
+                    // height: '14px',
                     borderRadius: '2px',
                     background: `rgba(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b}, ${this.state.color.a})`,
+                    display: 'flex',
+                    justifyContent: 'center',
                 },
                 swatch: {
                     padding: '5px',
@@ -60,6 +65,7 @@ class ColorPicker extends React.Component {
                     boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
                     display: 'inline-block',
                     cursor: 'pointer',
+                    width: '100%',
                 },
                 popover: {
                     position: 'absolute',
@@ -76,9 +82,9 @@ class ColorPicker extends React.Component {
         });
 
         return (
-            <div>
+            <div style={styles.holder} className={this.props.customClass}>
                 <div style={styles.swatch} onClick={this.handleClick}>
-                    <div style={styles.color} />
+                    <div className="pickerLabel" style={styles.color} data-picker-label={this.props.pickerLabel}></div>
                 </div>
                 {this.state.displayColorPicker ? <div style={styles.popover}>
                     <div style={styles.cover} onClick={this.handleClose} />

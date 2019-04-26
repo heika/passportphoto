@@ -1,5 +1,6 @@
 $font-stack: Meiryo, 微軟正黑體, Helvetica, sans-serif;
 $primary-color: #333;
+$break-large: 800px;
 
 body {
     font: 100% $font-stack;
@@ -42,6 +43,14 @@ body {
         background-color: #93AE5C;
     }
 
+    .btn.action-btn {
+        background-color: #00671e;
+        width: 100%;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px;
+    }
+
     input[type=radio] ~ label {
         background: #CCCCCC;
     }
@@ -80,16 +89,33 @@ body {
     }
 
     main {
-        form{
+        &.container {
+            padding: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            @media screen and (min-width: $break-large) {
+                flex-direction: row;
+                margin: 10px;
+            }
+        }
+
+        form>div{
             display: flex;
             flex-direction: column;
             align-items: center;
 
             .average {
                 display: flex;
+                width: 100%;
+                &.form-group {
+                    padding: 5px;
+                }
                 >div {
                     flex: 1 1 0;
-                    margin: 0 5px;
+                    margin: 5px;
                 }
                 .btn {
                     white-space: inherit;
@@ -99,9 +125,31 @@ body {
                     justify-content: center;
                     align-items: center;
                 }
+                label {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    white-space: nowrap;
+                }
                 label ~ .input:not(:checked) {
                     opacity: 0.5;
                 }
+                label img {
+                    margin: 5px;
+                }
+                input {
+                    width: 100%;
+                }
+            }
+
+            .pickerLabel:after {
+                content: attr(data-picker-label);
+                mix-blend-mode: difference;
+                color: #FFFFFF;
+                font-weight: 100;
+                font: 100% Meiryo, 微軟正黑體, Helvetica, sans-serif;
+                font-size: 14px;
+                text-align: center;
             }
 
             .img-container {
@@ -111,10 +159,11 @@ body {
             }
 
             #preview-cropped {
-                width: 98%;
+                width: 95%;
                 -webkit-box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);
                 -moz-box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);
                 box-shadow: 10px 10px 23px -6px rgba(51,51,51,1);
+                margin: 10px;
             }
 
             .cropper-crop-box .cropper-move:after {
@@ -135,8 +184,12 @@ body {
 
     }
 
-    footer#colophon {
+    footer {
         background-color: #403627;
         color: #FFFFFF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
     }
 }

@@ -198,25 +198,31 @@ class FormContainer extends Component {
   render() {
     return (
       <form>
-        <RadioInputContainer handleChange={this.changeMakerMode} prefix="mode" selections={this.modeSelections} customClass="average"/>
-        <Input text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
-        <ColorPicker
-          pickerLabel = "Background Color (If selected pic is transparent)"
-          background={ this.state.background }
-          backgroundColorChange={ this.backgroundColorChange }
-        />
-        {this.state.mode=='split' ? 
-          <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections} customClass="average"/>
-          : '' }
-        <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
-        {this.state.mode=='split' ? <CanvasSeletionContainer 
-          canvasSelections={this.canvasSelections} 
-          canvasSelectionsValue={this.state.canvasSelectionsValue}
-          canvasSelectionsValueChange={this.canvasSelectionsValueChange}/> : ''}
-        <a className="btn" download="download.jpg" onClick={this.downloadImage}>Download JPG</a>
-        <canvas id="preview-cropped" 
-          width={this.canvasSize[this.state.mode].w} 
-          height={this.canvasSize[this.state.mode].h} ></canvas>
+        <div>
+          <RadioInputContainer handleChange={this.changeMakerMode} prefix="mode" selections={this.modeSelections} customClass="average"/>
+          <Input customClass="average" text="Change Picture" type="file" id="inputImage" handleChange={this.changeImage} lblClasses="btn btn-primary btn-upload"  accept="image/*" inputRef={(ref) => this.fileUpload = ref}/>
+          <ColorPicker
+            pickerLabel="Background Color (If selected pic is transparent)"
+            background={ this.state.background }
+            backgroundColorChange={ this.backgroundColorChange }
+            customClass="average form-group"
+          />
+          {this.state.mode=='split' ? 
+            <RadioInputContainer handleChange={this.setAspectRatio} prefix="aspectRatio" selections={this.ratioSelections} customClass="average"/>
+            : '' }
+          <CropArea holderId="img-up" imgId="img-to-be-cropped" imgSrc={CropImage} />
+          {this.state.mode=='split' ? <CanvasSeletionContainer 
+            customClass="average"
+            canvasSelections={this.canvasSelections} 
+            canvasSelectionsValue={this.state.canvasSelectionsValue}
+            canvasSelectionsValueChange={this.canvasSelectionsValueChange}/> : ''}
+        </div>
+        <div>
+          <a className="btn action-btn" download="download.jpg" onClick={this.downloadImage}>Download JPG</a>
+          <canvas id="preview-cropped" 
+            width={this.canvasSize[this.state.mode].w} 
+            height={this.canvasSize[this.state.mode].h} ></canvas>
+        </div>
       </form>
     );
   }
