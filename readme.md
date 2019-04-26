@@ -62,5 +62,5 @@ npm install cropperjs
 ```
 
 Reference
-[Tutorial: How to set up React, webpack, and Babel 7 from scratch (2019)](https://www.valentinog.com/blog/react-webpack-babel/)\\
+[Tutorial: How to set up React, webpack, and Babel 7 from scratch (2019)](https://www.valentinog.com/blog/react-webpack-babel/)  
 [設定 webpack.config.js 來編譯 Sass !](https://ithelp.ithome.com.tw/articles/10194056)
